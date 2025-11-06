@@ -24,6 +24,8 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run build
+      - name: Adiciona .nojekyll
+        run: echo > dist/.nojekyll
       - name: List dist (debug)
         run: ls -R dist
       - uses: actions/upload-pages-artifact@v3
