@@ -1,4 +1,3 @@
-
 import React from 'react';
 import logoGrande from '../assets/logo-grande.png';
 import { WHATSAPP_LINK, WHATSAPP_PHONE_NUMBER } from '../constants';
@@ -28,21 +27,23 @@ const Footer: React.FC<FooterProps> = ({ onAdminClick, navigateTo }) => {
       {/* Main footer content */}
       <div className="container mx-auto px-6 py-20 md:py-24">
         {/* Logo grande e centralizada */}
-        <div className="w-full mb-10 md:mb-12">
+        <div className="w-full mb-10 md:mb-12 flex justify-center">
           <button
             onClick={() => { navigateTo('home'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-            className="group block mx-auto focus:outline-none focus:ring-2 focus:ring-emerald-400 rounded-md"
+            className="group block focus:outline-none focus:ring-2 focus:ring-emerald-400 rounded-md"
             aria-label="Ir para o topo"
             title="Voltar ao topo"
           >
             <img
               src={logoGrande}
-              alt="Mota Barbosa Serviços"
+              alt="Logo Mota Barbosa Serviços"
               className="mx-auto h-32 md:h-44 lg:h-56 w-auto transition-transform duration-300 group-hover:scale-[1.02]"
               style={{ objectFit: 'contain' }}
               loading="lazy"
               decoding="async"
+              onError={e => { e.currentTarget.style.display = 'none'; }}
             />
+            <span className="sr-only">Mota Barbosa Serviços</span>
           </button>
         </div>
 
@@ -74,13 +75,13 @@ const Footer: React.FC<FooterProps> = ({ onAdminClick, navigateTo }) => {
             </div>
             <div className="flex space-x-4 mt-4 justify-center md:justify-start">
               <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" className="text-slate-400 hover:text-emerald-400 transition-colors">
-                <i className="fa fa-whatsapp fa-2x"></i>
+                <i className="fa fa-whatsapp fa-2x" aria-hidden="true"></i>
               </a>
-              <a href="#" aria-label="Instagram" className="text-slate-400 hover:text-emerald-400 transition-colors">
-                <i className="fa fa-instagram fa-2x"></i>
+              <a href="https://instagram.com/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-slate-400 hover:text-emerald-400 transition-colors">
+                <i className="fa fa-instagram fa-2x" aria-hidden="true"></i>
               </a>
-              <a href="#" aria-label="Facebook" className="text-slate-400 hover:text-emerald-400 transition-colors">
-                <i className="fa fa-facebook fa-2x"></i>
+              <a href="https://facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="text-slate-400 hover:text-emerald-400 transition-colors">
+                <i className="fa fa-facebook fa-2x" aria-hidden="true"></i>
               </a>
             </div>
           </div>
