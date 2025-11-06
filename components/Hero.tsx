@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { WhatsAppButton } from './WhatsAppButton';
-import { WHATSAPP_LINK } from '../constants';
+import { createWhatsAppLink } from '../constants';
 
 const Hero: React.FC = () => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -29,7 +29,7 @@ const Hero: React.FC = () => {
           Seja para a manutenção de pousada, manutenção de casa de praia ou a completa limpeza de terreno, nossa equipe garante um serviço impecável, deixando seu espaço seguro e pronto para o futuro.
         </p>
         <div className={`transition-all duration-700 ease-out delay-300 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}>
-          <WhatsAppButton text="Solicitar Orçamento Gratuito" href={WHATSAPP_LINK} size="large" />
+          <WhatsAppButton text="Solicitar Orçamento Gratuito" href={createWhatsAppLink('hero')} size="large" />
         </div>
       </div>
     </section>

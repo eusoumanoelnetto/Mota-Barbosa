@@ -1,7 +1,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { WhatsAppButton } from './WhatsAppButton';
-import { WHATSAPP_LINK } from '../constants';
+import { createWhatsAppLink } from '../constants';
+import logoRetangular from '../assets/logo-retangular.png';
 
 const MenuIcon: React.FC<{className?: string}> = ({className}) => (
     <svg className={className} stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path></svg>
@@ -44,18 +45,13 @@ const Header: React.FC<{ navigateTo: (page: string, landId?: number) => void }> 
       <header className="bg-white/90 backdrop-blur-lg sticky top-0 z-50 shadow-md">
         <div className="container mx-auto px-6 py-3 md:py-4 flex justify-between items-center">
           <a onClick={() => navigateTo('home')} className="cursor-pointer select-none inline-flex items-center focus:outline-none focus:ring-2 focus:ring-emerald-400 rounded-md" aria-label="Ir para a página inicial">
-            <picture>
-              {/* Em telas grandes, priorize a logo horizontal */}
-              <source media="(min-width: 1024px)" srcSet="/assets/logo-retangular.png" />
-              {/* Fallback (mobile): pode usar a vertical para dar mais presença */}
-              <img
-                src="/assets/logo-grande.png"
-                alt="Mota Barbosa Serviços"
-                className="h-9 w-auto md:h-11 lg:h-12 transition-transform duration-300 hover:scale-[1.02]"
-                loading="eager"
-                decoding="async"
-              />
-            </picture>
+            <img
+              src={logoRetangular}
+              alt="Mota Barbosa Serviços"
+              className="h-9 w-auto md:h-11 lg:h-12 transition-transform duration-300 hover:scale-[1.02]"
+              loading="eager"
+              decoding="async"
+            />
           </a>
           <nav className="hidden md:flex items-center space-x-8">
             <a onClick={() => navigateAndScroll('services')} className="text-slate-600 hover:text-emerald-600 transition-colors cursor-pointer font-medium">Serviços</a>
@@ -63,7 +59,7 @@ const Header: React.FC<{ navigateTo: (page: string, landId?: number) => void }> 
             <a onClick={() => navigateAndScroll('land-sales')} className="text-slate-600 hover:text-emerald-600 transition-colors cursor-pointer font-medium">Venda de Terrenos</a>
           </nav>
           <div className="hidden md:block">
-            <WhatsAppButton text="Orçamento Rápido" href={WHATSAPP_LINK} />
+            <WhatsAppButton text="Orçamento Rápido" href={createWhatsAppLink('general')} />
           </div>
           <div className="md:hidden">
             <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-slate-800 focus:outline-none" aria-label="Abrir menu">
@@ -85,7 +81,7 @@ const Header: React.FC<{ navigateTo: (page: string, landId?: number) => void }> 
           <a onClick={() => navigateAndScroll('about')} className="text-white text-2xl font-semibold hover:text-emerald-400 transition-colors cursor-pointer">Sobre Nós</a>
           <a onClick={() => navigateAndScroll('land-sales')} className="text-white text-2xl font-semibold hover:text-emerald-400 transition-colors cursor-pointer">Venda de Terrenos</a>
           <div className="mt-4">
-            <WhatsAppButton text="Orçamento Rápido" href={WHATSAPP_LINK} size="large" />
+            <WhatsAppButton text="Orçamento Rápido" href={createWhatsAppLink('general')} size="large" />
           </div>
         </nav>
       </div>

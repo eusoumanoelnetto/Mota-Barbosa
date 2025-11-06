@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { WhatsAppButton } from './WhatsAppButton';
-import { WHATSAPP_LINK } from '../constants';
+import { createWhatsAppLink } from '../constants';
 
 const CTA: React.FC = () => {
   return (
@@ -12,7 +12,7 @@ const CTA: React.FC = () => {
         <p className="text-lg md:text-xl max-w-3xl mx-auto mb-8 text-emerald-100">
           Seja para uma completa limpeza de terreno para construção, a manutenção de pousada para receber hóspedes, ou a poda de árvores para segurança na sua casa de praia, o primeiro passo é o mais importante. Nossa equipe está pronta para entender e atender sua necessidade.
         </p>
-        <WhatsAppButton text="Falar com um Especialista" href={WHATSAPP_LINK} variant="secondary" size="large" />
+        <WhatsAppButton text="Falar com um Especialista" href={createWhatsAppLink('cta')} variant="secondary" size="large" />
       </div>
     </section>
   );

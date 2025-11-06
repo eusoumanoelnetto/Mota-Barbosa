@@ -2,6 +2,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { LandCard } from './LandCard';
 import { LandListing } from '../types';
+import { WhatsAppButton } from './WhatsAppButton';
+import { createWhatsAppLink } from '../constants';
 
 const LandSales: React.FC<{ landListings: LandListing[], navigateTo: (page: string, landId?: number) => void }> = ({ landListings, navigateTo }) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -55,13 +57,18 @@ const LandSales: React.FC<{ landListings: LandListing[], navigateTo: (page: stri
             </div>
           ))}
         </div>
-        <div className="mt-16 text-center">
+        <div className="mt-16 text-center flex flex-col sm:flex-row gap-4 justify-center items-center">
           <button 
             onClick={() => navigateTo('all-lands')} 
             className="bg-slate-800 text-white font-bold py-3 px-8 rounded-full hover:bg-slate-900 transition-all duration-300 transform hover:scale-105 shadow-lg"
           >
             Ver Todos os Terrenos
           </button>
+          <WhatsAppButton 
+            text="Falar sobre Terrenos" 
+            href={createWhatsAppLink('landSales')}
+            size="normal"
+          />
         </div>
       </div>
     </section>

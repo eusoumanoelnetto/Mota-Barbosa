@@ -1,5 +1,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
+import { WhatsAppButton } from './WhatsAppButton';
+import { createWhatsAppLink } from '../constants';
 
 const TreeIcon: React.FC<{className?: string}> = ({ className }) => (
     <svg xmlns="http://www.w3.org/2000/svg" className={className} width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
@@ -30,7 +32,7 @@ const CalendarIcon: React.FC<{className?: string}> = ({ className }) => (
     </svg>
 );
 
-const ServiceCard: React.FC<{ icon: React.ReactNode; title: string; children: React.ReactNode }> = ({ icon, title, children }) => {
+const ServiceCard: React.FC<{ icon: React.ReactNode; title: string; children: React.ReactNode; whatsappContext: 'limpezaTerreno' | 'podaArvores' | 'manutencao' | 'services' }> = ({ icon, title, children, whatsappContext }) => {
     return (
         <div className="bg-slate-50/50 p-8 rounded-xl shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 flex flex-col border border-slate-200">
             <div className="flex-shrink-0 flex items-center justify-center h-16 w-16 bg-emerald-100 text-emerald-600 rounded-full mb-6">
@@ -38,7 +40,14 @@ const ServiceCard: React.FC<{ icon: React.ReactNode; title: string; children: Re
             </div>
             <div className="flex-grow">
               <h3 className="text-2xl font-bold text-slate-900 mb-4">{title}</h3>
-              <p className="text-slate-600 leading-relaxed">{children}</p>
+              <p className="text-slate-600 leading-relaxed mb-6">{children}</p>
+            </div>
+            <div className="mt-auto pt-4">
+              <WhatsAppButton 
+                text="Solicitar Orçamento" 
+                href={createWhatsAppLink(whatsappContext)}
+                size="normal"
+              />
             </div>
         </div>
     );
@@ -82,16 +91,16 @@ const Services: React.FC = () => {
           <p className="text-lg text-slate-600 mt-4 max-w-3xl mx-auto">Oferecemos soluções completas, desde a poda de árvores até a limpeza de terreno para venda. Nossos serviços de manutenção de pousada e manutenção de casa de praia garantem que seu patrimônio esteja sempre impecável.</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <ServiceCard title="Poda de Árvores e Manutenção de Jardins" icon={<TreeIcon className="w-8 h-8" />}>
+            <ServiceCard title="Poda de Árvores e Manutenção de Jardins" icon={<TreeIcon className="w-8 h-8" />} whatsappContext="podaArvores">
                 Realizamos a poda de árvores profissional para garantir a segurança. Um serviço essencial para a manutenção de pousada ou casa de praia, mantendo a vegetação saudável e com um visual impecável.
             </ServiceCard>
-            <ServiceCard title="Corte de grama" icon={<SparklesIcon className="w-8 h-8" />}>
+            <ServiceCard title="Corte de grama" icon={<SparklesIcon className="w-8 h-8" />} whatsappContext="manutencao">
                 Nosso serviço de corte de grama deixa sua propriedade, seja o jardim de uma pousada ou o quintal da casa de praia, com um visual limpo e bem cuidado. Ideal para a manutenção regular e para valorizar seu imóvel.
             </ServiceCard>
-             <ServiceCard title="Manutenção mensal" icon={<CalendarIcon className="w-8 h-8" />}>
+             <ServiceCard title="Manutenção mensal" icon={<CalendarIcon className="w-8 h-8" />} whatsappContext="manutencao">
                 Com planos contínuos de manutenção de pousada e manutenção de casa de praia, seu patrimônio fica impecável o ano todo. Foco na alta temporada ou na sua tranquilidade, nós cuidamos de tudo.
             </ServiceCard>
-            <ServiceCard title="Venda conosco" icon={<TagIcon className="w-8 h-8" />}>
+            <ServiceCard title="Venda conosco" icon={<TagIcon className="w-8 h-8" />} whatsappContext="limpezaTerreno">
                 Quer vender mais rápido? Uma limpeza de terreno profissional impressiona compradores e valoriza o imóvel. Cuidamos de tudo, desde a remoção de detritos ao suporte na negociação para acelerar seu negócio.
             </ServiceCard>
         </div>
