@@ -1,5 +1,6 @@
 
 import React from 'react';
+import logoGrande from '../assets/logo-grande.png';
 import { WHATSAPP_LINK, WHATSAPP_PHONE_NUMBER } from '../constants';
 
 interface FooterProps {
@@ -35,7 +36,7 @@ const Footer: React.FC<FooterProps> = ({ onAdminClick, navigateTo }) => {
             title="Voltar ao topo"
           >
             <img
-              src="/assets/logo-grande.png"
+              src={logoGrande}
               alt="Mota Barbosa Serviços"
               className="mx-auto h-32 md:h-44 lg:h-56 w-auto transition-transform duration-300 group-hover:scale-[1.02]"
               style={{ objectFit: 'contain' }}
