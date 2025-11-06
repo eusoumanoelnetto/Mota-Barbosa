@@ -15,6 +15,7 @@ import AdminPage from './pages/AdminPage';
 import LandForm from './pages/LandForm';
 import { initialLandListings } from './data/initialLands';
 import { LandListing } from './types';
+import { removeExpiredListings, isExpiringSoon, daysUntilExpiration } from './utils/imageExpiration';
 
 const App: React.FC = () => {
   const [currentPage, setCurrentPage] = useState('home');
@@ -57,7 +58,23 @@ const App: React.FC = () => {
       if (storedLands) {
         const parsed = JSON.parse(storedLands);
         const sanitized = Array.isArray(parsed) ? parsed.map(sanitizeLand) : [];
-        setLandListings(sanitized);
+        
+        // Remover anúncios expirados automaticamente
+        const { active, expired } = removeExpiredListings(sanitized);
+        
+        if (expired.length > 0) {
+          showToast(`${expired.length} anúncio(s) expirado(s) foram removidos automaticamente.`, 'info');
+          localStorage.setItem('landListings', JSON.stringify(active));
+        }
+        
+        setLandListings(active);
+        
+        // Verificar anúncios próximos do vencimento
+        const expiringSoon = active.filter(l => isExpiringSoon(l));
+        if (expiringSoon.length > 0) {
+          const days = daysUntilExpiration(expiringSoon[0]);
+          showToast(`Atenção: ${expiringSoon.length} anúncio(s) expira(m) em ${days} dias.`, 'info');
+        }
       } else {
         const sanitizedInitial = initialLandListings.map(sanitizeLand);
         setLandListings(sanitizedInitial);
@@ -94,16 +111,14 @@ const App: React.FC = () => {
   
   // Funções CRUD para terrenos
   const handleAddLand = (newLand: Omit<LandListing, 'id'>) => {
-    // validação: código do imóvel deve ser único
-    const newCode = (newLand as any).code?.toString().trim().toLowerCase();
-    if (newCode && landListings.some(l => l.code.trim().toLowerCase() === newCode)) {
-      showToast('Já existe um terreno com este código. Use um código único.', 'error');
-      return;
-    }
     const landWithId = { ...newLand, id: Date.now() };
     updateAndStoreLands([...landListings, landWithId]);
-    showToast('Terreno cadastrado com sucesso!', 'success');
-    navigateTo('all-lands');
+    showToast('🎉 Terreno cadastrado com sucesso! Redirecionando para a lista de anúncios...', 'success');
+    
+    // Aguardar um pouco para o usuário ver o toast antes de redirecionar
+    setTimeout(() => {
+      navigateTo('all-lands');
+    }, 1500);
   };
 
   const handleUpdateLand = (updatedLand: LandListing) => {
@@ -117,8 +132,12 @@ const App: React.FC = () => {
       land.id === updatedLand.id ? updatedLand : land
     );
     updateAndStoreLands(updatedList);
-    showToast('Terreno atualizado com sucesso!', 'success');
-    navigateTo('all-lands');
+    showToast('✅ Terreno atualizado com sucesso! Redirecionando para a lista de anúncios...', 'success');
+    
+    // Aguardar um pouco para o usuário ver o toast antes de redirecionar
+    setTimeout(() => {
+      navigateTo('all-lands');
+    }, 1500);
   };
 
   const handleDeleteLand = (landId: number) => {
@@ -195,13 +214,14 @@ const App: React.FC = () => {
 
   return (
     <div className="bg-slate-50 min-h-screen text-slate-800 font-sans">
-      {/* Toasts */}
-      <div className="fixed top-4 right-4 z-50 pointer-events-none">
+      {/* Toasts - Posição melhorada */}
+      <div className="fixed top-20 right-4 z-50 pointer-events-none">
         {toast && (
           <Toast
             message={toast.message}
             type={toast.type}
             onClose={() => setToast(null)}
+            duration={5000}
           />
         )}
       </div>

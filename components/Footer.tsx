@@ -34,18 +34,14 @@ const Footer: React.FC<FooterProps> = ({ onAdminClick, navigateTo }) => {
             aria-label="Ir para o topo"
             title="Voltar ao topo"
           >
-            <picture>
-              <source media="(min-width: 1024px)" srcSet="/assets/logo-retangular.png" />
-              <img
-                src="/assets/logo-grande.png"
-                alt="Mota Barbosa Serviços"
-                className="mx-auto h-32 md:h-44 lg:h-56 w-auto transition-transform duration-300 group-hover:scale-[1.02]"
-                style={{ objectFit: 'contain' }}
-                loading="lazy"
-                decoding="async"
-                sizes="(min-width: 1024px) 600px, 320px"
-              />
-            </picture>
+            <img
+              src="/assets/logo-grande.png"
+              alt="Mota Barbosa Serviços"
+              className="mx-auto h-32 md:h-44 lg:h-56 w-auto transition-transform duration-300 group-hover:scale-[1.02]"
+              style={{ objectFit: 'contain' }}
+              loading="lazy"
+              decoding="async"
+            />
           </button>
         </div>
 
