@@ -4,8 +4,10 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig(({ mode }) => {
     const env = loadEnv(mode, '.', '');
+    const isProd = mode === 'production';
     return {
-      base: '/Mota-Barbosa/', // Nome do repositório no GitHub
+      // Em dev usamos '/', em produção (build para GitHub Pages) usamos o nome do repositório
+      base: isProd ? '/Mota-Barbosa/' : '/',
       server: {
         port: 3000,
         host: '0.0.0.0',
