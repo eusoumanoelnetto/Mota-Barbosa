@@ -6,6 +6,7 @@ export interface LandListing {
   location: string;
   fullAddress: string;
   price: string;
+  isReserved?: boolean; // indica se o terreno está reservado
   tags: string[];
   features: string[];
   description: string;

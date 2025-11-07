@@ -29,15 +29,67 @@ const formatShortAddress = (fullAddress: string): string => {
 
 // Formata preço para BRL com prefixo R$
 const formatPriceBRL = (raw: string): string => {
-  if (!raw) return 'Consultar';
+  if (!raw) return 'Sob consulta';
   const digits = raw.toString().replace(/[^\d]/g, '');
-  if (!digits) return 'Consultar';
+  if (!digits) return 'Sob consulta';
   const num = Number(digits);
   try {
     return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(num);
   } catch {
     return `R$ ${num.toLocaleString('pt-BR')}`;
   }
+};
+
+// Componente para animar o preço (0 -> valor final). Mostra "Sob consulta" quando não houver valor.
+const AnimatedPrice: React.FC<{ value: string; reserved: boolean }> = ({ value, reserved }) => {
+  const [display, setDisplay] = useState<string>(value || 'Sob consulta');
+
+  useEffect(() => {
+    const lower = (value || '').toLowerCase();
+    if (!value || lower.includes('sob consulta')) {
+      setDisplay('Sob consulta');
+      return;
+    }
+    const digits = value.replace(/[^\d]/g, '');
+    if (!digits) {
+      setDisplay('Sob consulta');
+      return;
+    }
+    const target = Number(digits);
+    const formatter = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' });
+    const start = 0;
+    const duration = 800; // ms
+    let raf = 0;
+    const t0 = performance.now();
+    const tick = (t: number) => {
+      const p = Math.min((t - t0) / duration, 1);
+      const current = Math.round(start + (target - start) * p);
+      setDisplay(formatter.format(current));
+      if (p < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [value]);
+
+  if ((display || '').toLowerCase() === 'sob consulta') {
+    return <div className="text-slate-500 text-2xl font-bold">Sob consulta</div>;
+  }
+
+  const parts = display.split(' ');
+  return (
+    <div
+      className={"flex items-end gap-1 select-none " + (reserved ? "opacity-70" : "")}
+      aria-label={`Valor de venda ${display}`}
+    >
+      <span className="text-emerald-600 text-2xl font-bold translate-y-1">{parts[0] || 'R$'}</span>
+      <span
+        className="text-emerald-600 font-black leading-none drop-shadow-sm"
+        style={{ fontSize: 'clamp(2.25rem, 6.5vw, 3.5rem)' }}
+      >
+        {parts[1] || ''}
+      </span>
+    </div>
+  );
 };
 
 const LandDetailsPage: React.FC<{ landListings: LandListing[]; landId: number; navigateTo: (page: string) => void }> = ({ landListings, landId, navigateTo }) => {
@@ -246,11 +298,37 @@ const LandDetailsPage: React.FC<{ landListings: LandListing[]; landId: number; n
         {/* Sidebar */}
         <div className="lg:col-span-1 space-y-6">
           <div className="sticky top-24">
-            {/* Price Card */}
-            <div className="bg-white p-6 rounded-xl shadow-2xl border-t-4 border-emerald-500">
-              <p className="text-lg text-slate-500 mb-1">Valor de Venda</p>
-              <div className="text-emerald-600 text-4xl sm:text-5xl font-extrabold mb-2">{formatPriceBRL(land.price)}</div>
-              <p className="text-xs text-slate-500">Preço sujeito a alteração sem aviso prévio.</p>
+            {/* Price Card avançado (preview local) */}
+            <div
+              className="group relative overflow-hidden rounded-2xl border-t-8 border-emerald-500 bg-gradient-to-b from-white to-emerald-50/20 px-7 py-6 shadow-lg flex flex-col gap-3 transition-all duration-300 ease-out hover:shadow-xl hover:scale-[1.01]"
+              aria-labelledby="price-heading"
+            >
+              {/* Decor ambient light */}
+              <div className="absolute inset-0 pointer-events-none">
+                <div className="absolute -top-12 -right-8 w-36 h-36 bg-emerald-100/40 rounded-full blur-2xl" />
+                <div className="absolute -bottom-16 -left-10 w-40 h-40 bg-emerald-50/30 rounded-full blur-3xl" />
+              </div>
+              <div className="flex items-center justify-between">
+                <p id="price-heading" className="text-xs sm:text-sm font-semibold tracking-wider text-slate-600 uppercase">Valor de Venda</p>
+                <span className={"text-[10px] font-semibold px-2 py-1 rounded-full border transition-colors " + (land.isReserved ? "bg-amber-100 text-amber-700 border-amber-200" : "bg-emerald-100 text-emerald-700 border-emerald-200")}>{land.isReserved ? "Reservado" : "Disponível"}</span>
+              </div>
+              {/* Animated price */}
+              <AnimatedPrice value={formatPriceBRL(land.price)} reserved={!!land.isReserved} />
+              <div className="flex items-center gap-1 text-[11px] text-slate-400">
+                <span className="relative group/tt">
+                  <i className="fa fa-info-circle text-slate-400"></i>
+                  <span className="invisible opacity-0 group-hover/tt:visible group-hover/tt:opacity-100 absolute left-1/2 -translate-x-1/2 mt-2 w-44 bg-slate-800 text-white text-[10px] rounded px-2 py-1 shadow-lg transition-opacity duration-200">Valores podem sofrer reajuste conforme mercado.</span>
+                </span>
+                <span>Preço sujeito a alteração sem aviso prévio.</span>
+              </div>
+              <div className="mt-1">
+                <WhatsAppButton
+                  text={land.isReserved ? "VER OUTRAS OPÇÕES" : "NEGOCIAR AGORA"}
+                  href={landWhatsAppLink}
+                  className="w-full !py-3 !text-sm font-semibold"
+                  size="large"
+                />
+              </div>
             </div>
 
             {/* Agent Card */}
