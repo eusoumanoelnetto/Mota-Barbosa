@@ -243,6 +243,37 @@ const LandDetailsPage: React.FC<{ landListings: LandListing[]; landId: number; n
         </div>
       </div>
 
+      {/* Mini-galeria de miniaturas após o título */}
+      {imageCount > 1 && (
+        <div className="bg-white p-5 rounded-xl shadow-lg mb-8">
+          <h3 className="text-lg font-bold text-slate-800 mb-3 flex items-center gap-2">
+            <i className="fa fa-images text-emerald-600" aria-hidden="true"></i>
+            Galeria de Fotos
+          </h3>
+          <div className="flex gap-2 overflow-x-auto no-scrollbar pb-1">
+            {images.map((src, idx) => (
+              <button
+                key={idx}
+                onClick={() => scrollToIndex(idx)}
+                aria-label={`Ver imagem ${idx + 1}`}
+                className={
+                  "relative flex-shrink-0 rounded-lg overflow-hidden border-2 focus:outline-none focus:ring-2 focus:ring-emerald-400 transition-all " +
+                  (idx === currentIndex
+                    ? "border-emerald-500 ring-2 ring-emerald-200 scale-105"
+                    : "border-slate-200 hover:border-emerald-300")
+                }
+              >
+                <img
+                  src={src}
+                  alt={`Miniatura ${idx + 1} de ${land.title}`}
+                  className="h-20 w-28 sm:h-24 sm:w-32 object-cover"
+                />
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         
         {/* Main Column */}
