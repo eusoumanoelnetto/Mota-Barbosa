@@ -114,25 +114,18 @@ const LandDetailsPage: React.FC<{ landListings: LandListing[]; landId: number; n
   }, [lightboxOpen, imageCount]);
 
   return (
-    <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-slate-50">
-       <div className="mb-8">
-            <button 
-              onClick={() => navigateTo('all-lands')} 
-              className="text-emerald-600 font-semibold hover:text-emerald-800 transition-colors text-lg"
-            >
-              &larr; Ver todos os terrenos
-            </button>
-        </div>
-      {/* Carrossel em largura total do conteúdo */}
-      <div className="bg-white rounded-xl shadow-lg overflow-hidden mb-6">
+    <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-2 pb-10 bg-slate-50">
+      {/* Removido botão de voltar redundante (menu já permite navegar). Se quiser reintroduzir como overlay sobre a imagem: ver comentário ao final. */}
+      {/* Banner de imagens em largura total da tela (full-bleed) */}
+      <div className="relative w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] mb-6">
         {imageCount > 0 ? (
           <div className="relative">
             <div
               ref={scrollerRef}
-              className="w-full h-[22rem] sm:h-[30rem] md:h-[34rem] overflow-x-auto whitespace-nowrap scroll-smooth snap-x snap-mandatory no-scrollbar"
+              className="w-screen h-[22rem] sm:h-[30rem] md:h-[36rem] overflow-x-auto whitespace-nowrap scroll-smooth snap-x snap-mandatory no-scrollbar"
             >
               {images.map((src, idx) => (
-                <div key={idx} data-slide={idx} className="inline-block align-top w-full h-full snap-start relative">
+                <div key={idx} data-slide={idx} className="inline-block align-top w-screen h-full snap-start relative">
                   <img
                     src={src}
                     alt={`${land.title} - foto ${idx + 1}`}
@@ -182,7 +175,7 @@ const LandDetailsPage: React.FC<{ landListings: LandListing[]; landId: number; n
             </div>
           </div>
         ) : (
-          <div className="h-64 sm:h-96 w-full bg-slate-300 flex items-center justify-center"> 
+          <div className="h-64 sm:h-96 w-screen bg-slate-300 flex items-center justify-center"> 
             <div className="text-slate-600">Sem imagem disponível</div>
           </div>
         )}
