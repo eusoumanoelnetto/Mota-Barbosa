@@ -6,8 +6,8 @@ export default defineConfig(({ mode }) => {
     const env = loadEnv(mode, '.', '');
     const isProd = mode === 'production';
     return {
-      // Em dev usamos '/', em produção (build para GitHub Pages) usamos o nome do repositório
-      base: isProd ? '/Mota-Barbosa/' : '/',
+      // Em dev usamos '/', em produção (build para GitHub Pages) usamos caminhos relativos
+      base: isProd ? './' : '/',
       server: {
         port: 3000,
         host: '0.0.0.0',
