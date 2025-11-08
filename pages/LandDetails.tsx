@@ -361,18 +361,6 @@ const LandDetailsPage: React.FC<{ landListings: LandListing[]; landId: number; n
                 />
               </div>
             </div>
-
-            {/* Agent Card */}
-            <div className="bg-white p-6 rounded-xl shadow-lg text-center mt-6">
-              <p className="text-slate-500 mb-1">Fale com o Corretor</p>
-              <p className="text-2xl font-bold text-slate-800 mb-4">{WHATSAPP_PHONE_NUMBER}</p>
-              <WhatsAppButton 
-                text="FALAR NO WHATSAPP"
-                href={landWhatsAppLink}
-                className="w-full"
-                size="large"
-              />
-            </div>
           </div>
         </div>
 
