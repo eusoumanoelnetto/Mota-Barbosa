@@ -38,9 +38,14 @@ jobs:
       
       - name: Build
         run: npm run build
+        env:
+          NODE_ENV: production
       
       - name: Add .nojekyll
         run: touch dist/.nojekyll
+      
+      - name: List build output
+        run: ls -la dist/
       
       - name: Setup Pages
         uses: actions/configure-pages@v5

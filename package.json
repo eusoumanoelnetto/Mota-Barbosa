@@ -8,6 +8,7 @@
     "build": "vite build",
     "preview": "vite preview"
   },
+  "main": "index.tsx",
   "dependencies": {
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
