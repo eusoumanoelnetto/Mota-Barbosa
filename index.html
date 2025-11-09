@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <!-- Caminhos relativos para funcionar com base dinâmica do Vite -->
-    <link rel="icon" type="image/png" href="/assets/favicon.png" />
+    <link rel="icon" type="image/png" href="assets/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
     <!-- HTML Meta Tags -->
@@ -27,24 +27,9 @@
     <!-- Meta Tags geradas via https://www.opengraph.xyz -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    
-    <!-- Debug script for GitHub Pages -->
-    <script>
-      window.addEventListener('load', function() {
-        console.log('Page loaded successfully');
-        console.log('Current URL:', window.location.href);
-        console.log('Base URL:', document.querySelector('base')?.href || 'No base tag');
-      });
-      
-      window.addEventListener('error', function(e) {
-        console.error('Global error:', e);
-        document.body.style.background = 'red';
-        document.body.innerHTML = '<div style="padding: 20px; color: white;">Error: ' + e.message + '</div>';
-      });
-    </script>
 </head>
   <body>
     <div id="root"></div>
-    <script src="/simple-test.js"></script>
+  <script type="module" src="index.tsx"></script>
   </body>
 </html>
