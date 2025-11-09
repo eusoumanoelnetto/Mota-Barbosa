@@ -34,8 +34,8 @@ const CalendarIcon: React.FC<{className?: string}> = ({ className }) => (
 
 const ServiceCard: React.FC<{ icon: React.ReactNode; title: string; children: React.ReactNode; whatsappContext: 'limpezaTerreno' | 'podaArvores' | 'manutencao' | 'services' }> = ({ icon, title, children, whatsappContext }) => {
     return (
-        <div className="bg-slate-50/50 p-6 rounded-xl shadow-lg hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 flex flex-col border border-slate-200">
-            <div className="flex-shrink-0 flex items-center justify-center h-12 w-12 bg-emerald-100 text-emerald-600 rounded-full mb-4">
+  <div className="bg-slate-50/50 p-6 rounded-md md:rounded-lg shadow-lg hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 flex flex-col border border-slate-200">
+            <div className="flex-shrink-0 flex items-center justify-center h-12 w-12 bg-emerald-100 text-emerald-600 rounded-md md:rounded-lg mb-4">
                 {icon}
             </div>
             <div className="flex-grow">
