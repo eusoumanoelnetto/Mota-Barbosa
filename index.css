@@ -6,12 +6,14 @@
   box-sizing: border-box;
 }
 
-body {
+html, body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Evita barra de rolagem horizontal causada por animações/transform */
+  overflow-x: hidden;
 }
 
 #root {
