@@ -34,15 +34,15 @@ const CalendarIcon: React.FC<{className?: string}> = ({ className }) => (
 
 const ServiceCard: React.FC<{ icon: React.ReactNode; title: string; children: React.ReactNode; whatsappContext: 'limpezaTerreno' | 'podaArvores' | 'manutencao' | 'services' }> = ({ icon, title, children, whatsappContext }) => {
     return (
-        <div className="bg-slate-50/50 p-8 rounded-xl shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 flex flex-col border border-slate-200">
-            <div className="flex-shrink-0 flex items-center justify-center h-16 w-16 bg-emerald-100 text-emerald-600 rounded-full mb-6">
+        <div className="bg-slate-50/50 p-6 rounded-xl shadow-lg hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 flex flex-col border border-slate-200">
+            <div className="flex-shrink-0 flex items-center justify-center h-12 w-12 bg-emerald-100 text-emerald-600 rounded-full mb-4">
                 {icon}
             </div>
             <div className="flex-grow">
-              <h3 className="text-2xl font-bold text-slate-900 mb-4">{title}</h3>
-              <p className="text-slate-600 leading-relaxed mb-6">{children}</p>
+              <h3 className="text-xl font-bold text-slate-900 mb-3">{title}</h3>
+              <p className="text-slate-600 leading-relaxed mb-4 line-clamp md-line-clamp-5 line-clamp-4">{children}</p>
             </div>
-            <div className="mt-auto pt-4">
+            <div className="mt-auto pt-2">
               <WhatsAppButton 
                 text="Solicitar Orçamento" 
                 href={createWhatsAppLink(whatsappContext)}
@@ -83,14 +83,14 @@ const Services: React.FC = () => {
     <section 
       id="services" 
       ref={sectionRef} 
-      className={`py-20 bg-white transition-all duration-700 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+      className={`py-12 md:py-16 bg-white transition-all duration-700 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
     >
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-slate-900">Nossos Serviços: Limpeza de Terreno, Poda de Árvores e Manutenção</h2>
-          <p className="text-lg text-slate-600 mt-4 max-w-3xl mx-auto">Oferecemos soluções completas, desde a poda de árvores até a limpeza de terreno para venda. Nossos serviços de manutenção de pousada e manutenção de casa de praia garantem que seu patrimônio esteja sempre impecável.</p>
+          <p className="text-base md:text-lg text-slate-600 mt-4 max-w-3xl mx-auto">Oferecemos soluções completas, desde a poda de árvores até a limpeza de terreno para venda. Nossos serviços de manutenção de pousada e manutenção de casa de praia garantem que seu patrimônio esteja sempre impecável.</p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 items-stretch">
             <ServiceCard title="Poda de Árvores e Manutenção de Jardins" icon={<TreeIcon className="w-8 h-8" />} whatsappContext="podaArvores">
                 Realizamos a poda de árvores profissional para garantir a segurança. Um serviço essencial para a manutenção de pousada ou casa de praia, mantendo a vegetação saudável e com um visual impecável.
             </ServiceCard>

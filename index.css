@@ -28,3 +28,19 @@ img {
   max-width: 100%;
   height: auto;
 }
+
+/* Utilitários: limitar número de linhas do texto (line clamp) */
+.line-clamp {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+/* Adiciona propriedade padrão (não suportada amplamente, mas mantém compatibilidade futura) */
+.line-clamp-3 { -webkit-line-clamp: 3; line-clamp: 3; }
+.line-clamp-4 { -webkit-line-clamp: 4; line-clamp: 4; }
+.line-clamp-5 { -webkit-line-clamp: 5; line-clamp: 5; }
+
+/* Variante responsiva simples para clamp maior em telas médias+ */
+@media (min-width: 768px) {
+  .md-line-clamp-5 { -webkit-line-clamp: 5; line-clamp: 5; }
+}
